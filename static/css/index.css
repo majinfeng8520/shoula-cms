@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+body{
+    height: 100%;
+}
+
+td{
+    text-align: center;
+}
+
+.fr {
+    float: right;
+}
+.m-input-search input{
+    /*border-radius: 0px;*/
+    /*border-right: none;*/
+}
+.bor input{
+    border: none;
+}
+
+.btn1{
+    margin-left: 0;
+}
