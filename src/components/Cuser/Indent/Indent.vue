@@ -6,7 +6,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button @click="onSubmit">查询</el-button>
-                <el-button type="warning" @click="dialogVisible = true">审核</el-button>
+                <!--<el-button type="warning" @click="dialogVisible = true">审核</el-button>-->
                 <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
                     <span>确认通过审核</span>
                     <span slot="footer" class="dialog-footer">
@@ -48,7 +48,9 @@
             </el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small" class="mbtn">审核</el-button>
+                    <el-button @click="handleClick(scope.row)" type="text" size="small" class="mbtn" :disabled="scope.row.status !== 2">
+                        审核
+                    </el-button>
                 </template>
             </el-table-column>
             <el-table-column prop="status" fixed="right" label="状态" show-overflow-tooltip :formatter="carry">
@@ -86,21 +88,31 @@
         },
         mounted() {
             this.axios.get('https://www.innothinking.cn/order/getAll').then((response) => {
-                // console.log(response);
+
                 this.tableData3 = response.data.order;
                 this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
                 console.log(this.tableData3);
             })
         },
         methods: {
+            // 判断状态显示按钮
+            // checkOrder(row) {
+            //     if (row.status === 2) {
+            //         return '<template slot-scope="scope">' +
+            //             '<el-button @click="handleClick(scope.row)" type="text" size="small" class="mbtn">审核</el-button>' +
+            //             '</template>'
+            //     } else {
+            //
+            //     }
+            // },
+            // 判断状态显示订单进度
             carry(row, column, cellValue) {
-                // console.log('1', row);
                 if (row.status == 0) {
                     return '已完成'
                 } else if (row.status == 1) {
                     return '未取件'
                 } else if (row.status == 2) {
-                    return '未付款'
+                    return '已结算'
                 } else if (row.status == 3) {
                     return '已取消'
                 } else {
