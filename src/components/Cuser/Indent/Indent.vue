@@ -44,7 +44,7 @@
             </el-table-column>
             <el-table-column prop="userId" label="用户" width="100">
             </el-table-column>
-            <el-table-column prop="username" label="回收人" width="100">
+            <el-table-column prop="pickname" label="回收人" width="100">
             </el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
