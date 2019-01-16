@@ -24,15 +24,7 @@
             </el-table-column>
             <el-table-column prop="name" label="名称" sortable width="150">
             </el-table-column>
-            <el-table-column prop="picUrl" label="Url" width="170">
-            </el-table-column>
-            <el-table-column prop="phoneNumber" label="联系方式" sortable width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="联系地址" width="350">
-            </el-table-column>
-            <el-table-column prop="indentTotality" label="订单总数" sortable width="140">
-            </el-table-column>
-            <el-table-column prop="gathering" label="收款总额" sortable width="140">
+            <el-table-column prop="picUrl" label="Url" width="950">
             </el-table-column>
             <el-table-column fixed="right" label="操作" show-overflow-tooltip>
                 <template slot-scope="scope">
@@ -110,7 +102,7 @@
                 this.tableData3 = response.data.categories;
                 // this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
                 this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
-                console.log(this.tableData3);
+                // console.log(this.tableData3);
             }).catch((error) => {
                 console.log(error);
             })

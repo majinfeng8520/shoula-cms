@@ -6,15 +6,16 @@
             </el-form-item>
             <el-form-item>
                 <el-button @click="onSubmit">查询</el-button>
-                <el-button type="danger">删除</el-button>
+                <!--<el-button type="danger">删除</el-button>-->
             </el-form-item>
         </el-form>
         <el-table ref="multipleTable" :data="tableData3.slice((currentPage1-1)*pageSize,currentPage1*pageSize)"
                   tooltip-effect="dark" style="width: 100%"
-                  @selection-change="handleSelectionChange" :show-header="true"
                   max-height="531" height="520">
-            <el-table-column type="selection" width="55">
-            </el-table-column>
+            <!--@selection-change="handleSelectionChange" -->
+            <!--:show-header="true"-->
+            <!--<el-table-column type="selection" width="55">-->
+            <!--</el-table-column>-->
             <el-table-column prop="headUrl" label="图片描述" width="120">
                 <template slot-scope="scope">
                     <img :src="scope.row.headUrl" alt="" style="width: 60px;height: 60px">
@@ -71,10 +72,18 @@
             <el-col :span="24" style="margin: 0 0 20px 0;">
                 <div class="grid-content">
                     <el-row :gutter="20">
-                        <el-col :span="6"><div class="grid-content bg-purple">17625371161</div></el-col>
-                        <el-col :span="6"><div class="grid-content bg-purple">17625371161</div></el-col>
-                        <el-col :span="6"><div class="grid-content bg-purple">17625371161</div></el-col>
-                        <el-col :span="6"><div class="grid-content bg-purple">17625371161</div></el-col>
+                        <el-col :span="6">
+                            <div class="grid-content bg-purple">17625371161</div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="grid-content bg-purple">17625371161</div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="grid-content bg-purple">17625371161</div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="grid-content bg-purple">17625371161</div>
+                        </el-col>
                     </el-row>
                 </div>
             </el-col>
@@ -124,14 +133,12 @@
                 this.tableData3 = response.data.userList;
                 // this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
                 this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
-                console.log(this.tableData3);
+                // console.log(this.tableData3);
             }).catch((error) => {
                 console.log(error);
             })
         },
-        computed: {
-
-        },
+        computed: {},
         methods: {
             onSubmit() {
                 console.log('submit!');
@@ -157,7 +164,10 @@
             },
             //点击弹出模态框
             handleClick(row) {
-                console.log(row);
+                console.log(row.nickname);
+                this.axios.get('https://www.innothinking.cn/user/searchByNickname' + '?nickname=' + row.nickname).then(res => {
+                    console.log(res);
+                });
                 this.dialogVisible = true;
             },
             handleClose(done) {
@@ -190,7 +200,8 @@
         padding: 4px 12px;
         color: #c5c5c5;
     }
-    .el-row--flex{
+
+    .el-row--flex {
         display: flex;
         justify-content: center;
         align-items: center;

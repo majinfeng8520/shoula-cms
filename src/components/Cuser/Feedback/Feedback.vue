@@ -20,8 +20,6 @@
             </el-table-column>
             <el-table-column prop="nickname" label="用户名" width="170">
             </el-table-column>
-            <el-table-column prop="title" label="标题" width="120">
-            </el-table-column>
             <el-table-column prop="createTime" label="时间" width="150">
             </el-table-column>
             <el-table-column prop="context" label="内容" width="550">

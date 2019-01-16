@@ -87,7 +87,7 @@
                 this.tableData3 = response.data.bannerList;
                 // this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
                 this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
-                console.log('123', this.tableData3);
+                // console.log('123', this.tableData3);
             }).catch((error) => {
                 console.log(error);
             })
@@ -124,27 +124,6 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    // //截取picUrl字符
-                    // let picName = row.picUrl.substring(27, row.picUrl.length);
-                    // console.log(picName);
-                    // //创建formData
-                    // let formData = new FormData();
-                    // formData.append("url", picName);
-                    //
-                    // //删除请求
-                    // this.axios.post('https://www.innothinking.cn/delete', formData).then((response) => {
-                    //     console.log('111', response);
-                    //     //判断是否删除成功 如果删除成功返回success继续执行后台banner列表删除
-                    //     if (response.data == 'success') {
-                    //         // let FormMData = new FormData();
-                    //         // FormMData.append("id", row.id);
-                    //         this.axios.delete('https://www.innothinking.cn/banner' + '?id=' + row.id).then((response) => {
-                    //             console.log(response);
-                    //         });
-                    //     } else {
-                    //
-                    //     }
-                    // });
                     this.axios.delete('https://www.innothinking.cn/banner' + '?id=' + row.id).then((response)=>{
                         console.log(response);
                         if (response.data.code == 1){

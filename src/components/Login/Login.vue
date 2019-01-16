@@ -7,7 +7,7 @@
                     <el-input type="userName" autocomplete="off" class="bor" v-model="ruleForm2.userName"></el-input>
                 </el-form-item>
                 <el-form-item label="密码：" prop="pass">
-                    <el-input type="pass" autocomplete="off" class="bor" v-model="ruleForm2.pass"></el-input>
+                    <el-input type="password" autocomplete="off" class="bor" v-model="ruleForm2.pass"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm2')" class="btn">登录</el-button>
@@ -71,7 +71,7 @@
     .main {
         height: 100%;
         display: block;
-        background: url("../../../static/images/VCG41N588365450.png") no-repeat;
+        background: url("../../../static/images/VCG41N588365450.jpg") no-repeat;
         background-size: 100% 100%;
         position: relative;
     }

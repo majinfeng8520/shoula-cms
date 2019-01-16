@@ -8,7 +8,7 @@
                 <el-button @click="onSubmit">查询</el-button>
                 <el-button type="danger">删除</el-button>
             </el-form-item>
-            <el-button type="primary" class="fr" @click="dialogVisible = true">新增优惠券<i
+            <el-button type="primary" class="fr" @click="onShowAddCoupons">新增优惠券<i
                 class="el-icon-plus el-icon--right"></i></el-button>
         </el-form>
 
@@ -18,13 +18,13 @@
                   max-height="545" height="540">
             <el-table-column type="selection" width="55">
             </el-table-column>
-            <el-table-column prop="name" label="优惠券名称" width="200">
+            <el-table-column prop="name" label="所属商家" width="300">
             </el-table-column>
-            <el-table-column prop="createTime" label="上架时间" width="170">
+            <el-table-column prop="createTime" label="上架时间" width="200">
             </el-table-column>
-            <el-table-column prop="merchantName" label="所属商家" width="120">
-            </el-table-column>
-            <el-table-column prop="merchantAddress" label="商家信息" width="400">
+            <!--<el-table-column prop="name" label="所属商家" width="120">-->
+            <!--</el-table-column>-->
+            <el-table-column prop="merchantId" label="商家信息" width="400">
             </el-table-column>
             <el-table-column prop="useTime" label="使用次数" width="120">
             </el-table-column>
@@ -41,9 +41,15 @@
                 <el-form-item label="优惠券名称" prop="name">
                     <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
-                <el-form-item label="商家信息" prop="merchantId">
-                    <el-input v-model="ruleForm.merchantId"></el-input>
+                <el-form-item label="商家" prop="region">
+                    <el-select v-model="ruleForm.region.label" placeholder="请选择商家" @change="selectGet">
+                        <el-option :label="item.name" :value="item.id" v-for="item in ruleForm.region"
+                                   :key="item.merchantId"></el-option>
+                    </el-select>
                 </el-form-item>
+                <!--<el-form-item label="商家信息" prop="merchantName">-->
+                <!--<el-input v-model="ruleForm.merchantName"></el-input>-->
+                <!--</el-form-item>-->
                 <el-form-item label="优惠券额度" prop="money">
                     <el-input v-model="ruleForm.money"></el-input>
                 </el-form-item>
@@ -91,6 +97,8 @@
                 //创建优惠券
                 ruleForm: {
                     name: '',
+                    // merchantName: '',
+                    region: [],
                     merchantId: '',
                     money: '',
                     deadTime: '',
@@ -99,12 +107,13 @@
                 },
                 rules: {
                     name: [
-                        {required: true, message: '请输入优惠券名称', trigger: 'blur'},
-                        {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+                        {required: true, message: '请输入优惠券名称', trigger: 'blur'}
                     ],
-                    merchantId: [
-                        {required: true, message: '请输入商家信息', trigger: 'blur'},
-                        {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+                    // merchantName: [
+                    //     {required: true, message: '请输入商家信息', trigger: 'blur'}
+                    // ],
+                    region: [
+                        {required: true, message: '请选择活动区域', trigger: 'change'}
                     ],
                     money: [
                         {required: true, message: '请输入优惠券额度', trigger: 'blur'},
@@ -127,7 +136,7 @@
                 this.tableData3 = response.data.CouponTemplate;
                 // this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
                 this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
-                console.log(this.tableData3);
+                // console.log(this.tableData3);
             }).catch((error) => {
                 console.log(error);
             })
@@ -135,6 +144,21 @@
         methods: {
             onSubmit() {
                 this.dialogVisible = false;
+            },
+            //打开创建优惠券模态框
+            onShowAddCoupons() {
+                this.axios.get('https://www.innothinking.cn/merchant').then((response) => {
+                    // console.log(response);
+                    // this.ruleForm.region = response.data.merchant;
+                    // console.log(this.ruleForm.region)
+                    this.ruleForm.region = response.data.merchant;
+                    // console.log(this.ruleForm.region)
+                    // for (let i = 0; i <response.data.merchant.length ; i++) {
+                    //     this.ruleForm.region = response.data.merchant[i];
+                    //     console.log(this.ruleForm.region)
+                    // }
+                });
+                this.dialogVisible = true;
             },
             toggleSelection(rows) {
                 if (rows) {
@@ -154,14 +178,29 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             },
+            //删除优惠券
             handleClick(row) {
-                console.log(row);
+                console.log(row.id);
+                this.axios.delete('https://www.innothinking.cn/couponTemplate/delete' + '?id=' + row.id).then((res) => {
+                    // console.log(res);
+                    alert('删除成功');
+                })
                 // this.dialogVisible = true;
             },
-            //创建优惠券
+            //获取下拉框的值
+            selectGet(vId) {
+                let obj = {};
+                obj = this.ruleForm.region.find((item) => {//this.ruleForm
+                    return item.id === vId;//筛选出匹配数据
+                });
+                this.ruleForm.merchantId = obj.id;
+                // console.log(obj.id);//我这边的name就是对应label的
+            },
+            //提交创建优惠券
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        console.log(this.ruleForm.region.id);
                         let formData = new FormData();
                         formData.append("name", this.ruleForm.name);
                         formData.append("merchantId", this.ruleForm.merchantId);

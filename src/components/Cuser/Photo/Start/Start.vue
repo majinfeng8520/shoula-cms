@@ -77,7 +77,7 @@
                 this.tableData3 = response.data.banner;
                 // this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
                 this.allPageSize = parseInt(this.tableData3.length / this.pageSize + 1);
-                console.log(this.tableData3);
+                // console.log(this.tableData3);
             }).catch((error) => {
                 console.log(error);
             })
