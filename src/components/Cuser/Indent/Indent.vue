@@ -61,7 +61,7 @@
                 <template slot-scope="scope">
                     <span v-show="scope.row.status=== 0" class="colorGreen">已完成</span>
                     <span v-show="scope.row.status=== 1" class="colorRed">未取件</span>
-                    <span v-show="scope.row.status=== 2" class="colorYellow">未付款</span>
+                    <span v-show="scope.row.status=== 2" class="colorYellow">已回收</span>
                     <span v-show="scope.row.status=== 3" class="colorGrey">已取消</span>
                 </template>
             </el-table-column>
@@ -233,9 +233,9 @@
         border-radius: 4px;
     }
     .colorYellow{
-        color: #ffff00;
+        color: #cf9236;
         padding: 0 5px;
-        border: 1px solid #ffff00;
+        border: 1px solid #cf9236;
         border-radius: 4px;
     }
 </style>
